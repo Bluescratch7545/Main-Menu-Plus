@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\fmt-subbuild\CMakeFiles\6b120caff84119395f56e3224ee75715\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{356A2FCD-D5B4-3FCD-B0D1-7F0ACC154C22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

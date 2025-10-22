@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\13c6d0b60bc9049806b6d84e4bf902e5\json-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\e455afd87deea5a7aaeeddcb57e2b21b\json-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\c52ab10dee9c1c4d867383bda6986516\json-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\json-subbuild\CMakeFiles\json-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A79998D0-DF6E-3ECB-9ED0-CA7437DEAA36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

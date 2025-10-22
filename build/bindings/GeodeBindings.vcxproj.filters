@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\bindings\bindings\Geode\GeneratedSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\CMakeFiles\15c1d4e9d6360d1273c2273a6e4fac14\CodegenData.txt.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{4F8D6D32-A4F9-32AC-8E8F-75ED90DFD967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{06023CBD-5E03-3154-A43B-A000F06586B5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

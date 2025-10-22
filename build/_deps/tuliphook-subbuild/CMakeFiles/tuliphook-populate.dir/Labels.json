@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/tuliphook-populate"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/97daef544d8b40d42507d4c344441370/tuliphook-populate.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/d6f60d4e4325750b64bd5d8cfc865a84/tuliphook-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/65ab1a7895670febc39fb327e611b771/tuliphook-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"tuliphook-populate"
+		],
+		"name" : "tuliphook-populate"
+	}
+}

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\a8fe2d9366c881e0a432c3929980d7e4\bindings-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\970abfa69c02f194a3eab6dbfdebc421\bindings-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\10d64ea161fff3d333005e9496da074c\bindings-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Bluescratch\Documents\Coding\Geode\MainMenuPlus\build\_deps\bindings-subbuild\CMakeFiles\bindings-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9F613C43-9CFE-37D1-84F3-5841DD2BBAB5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

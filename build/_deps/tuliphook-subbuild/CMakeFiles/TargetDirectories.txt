@@ -1,0 +1,3 @@
+C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/tuliphook-populate.dir
+C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/ALL_BUILD.dir
+C:/Users/Bluescratch/Documents/Coding/Geode/MainMenuPlus/build/_deps/tuliphook-subbuild/CMakeFiles/ZERO_CHECK.dir
