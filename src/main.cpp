@@ -8,8 +8,20 @@ class $modify(MyMenuLayer, MenuLayer) {
 	bool init() {
 		if (!MenuLayer::init()) return false;
 
+		// Makes The Speed Of The Anims Be Diff Using Setting
+		auto speed = Mod::get()->getSettingValue<int64_t>("slide-speed");
+
 		// Define winSize
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
+
+		// Define 4x3Fix
+		auto fourXThreeFix = Mod::get()->getSettingValue<bool>("4x3Fix");
+
+		// Define extraBtns
+		auto extraBtns = Mod::get()->getSettingValue<bool>("extra-buttons");
+
+		// Define infoBtn
+		auto infoBtn = Mod::get()->getSettingValue<bool>("disable-info");
 
 		// DELETE social media thing
 		if (auto links = this->getChildByID("social-media-menu")) {
@@ -29,37 +41,35 @@ class $modify(MyMenuLayer, MenuLayer) {
 			moreGames->setPosition({-1000, 1000});
 		}
 
-		// Removes Title
-		if (auto oldLogo = this->getChildByID("main-title")) {
-   			oldLogo->setVisible(false);
-		}
+		// Define Logo
+		auto Logo = this->getChildByID("main-title");
 
 		// SLides The Title In
-		auto title = CCSprite::createWithSpriteFrameName("GJ_logo_001.png");
-		if (title) {
+		if (Logo) {
 			// Start The Logo Up, Up, And Above!
-			title->setPosition(CCPoint{winSize.width / 2, winSize.height + 100});
-			this->addChild(title);
+			Logo->setPosition(CCPoint{winSize.width / 2, winSize.height + 100});
 
 			// Slide To Normal, Boring Position
-			auto logoMoveAction = CCMoveTo::create(2.0f, CCPoint{winSize.width / 2, winSize.height - 70});
+			auto logoMoveAction = CCMoveTo::create(speed + 3.0f, CCPoint{winSize.width / 2, winSize.height - 70});
 			// Makes The movement exponential out instead of having movement type: none
 			auto easeLogoMoveAction = CCEaseExponentialOut::create(logoMoveAction);
-			title->runAction(easeLogoMoveAction);
+			Logo->runAction(easeLogoMoveAction);
 		}
 
 		// Define bottomMenu
 		auto bottomMenu = getChildByID("bottom-menu");
 
 		// Mod Info Btn
-		auto modInfoBtn = CCMenuItemSpriteExtra::create(
-			CCSprite::createWithSpriteFrameName("GJ_reportBtn_001.png"),
-			this,
-			menu_selector(MyMenuLayer::modInfoBtnClicked)
-		);
+		if (!infoBtn) {
+			auto modInfoBtn = CCMenuItemSpriteExtra::create(
+				CCSprite::createWithSpriteFrameName("GJ_infoBtn_001.png"),
+				this,
+				menu_selector(MyMenuLayer::modInfoBtnClicked)
+			);
 
-		bottomMenu->addChild(modInfoBtn);
-		modInfoBtn->setScale(1.05f);
+			bottomMenu->addChild(modInfoBtn);
+			modInfoBtn->setScale(1.05f);
+		}
 
 		// Slides The Center Buttons
 		auto mainMenu = getChildByID("main-menu");
@@ -71,7 +81,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		mainMenu->setPositionY(startY);
 
 		// Slide Up
-		auto btnMMoveAction = CCMoveTo::create(2.0f, CCPoint{mainMenu->getPositionX(), targetMY});
+		auto btnMMoveAction = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetMY});
 		auto easeBtnMMoveAction = CCEaseExponentialOut::create(btnMMoveAction);
 
 		// Run Movement
@@ -84,7 +94,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		bottomMenu->setPositionY(startY);
 
 		// Slide Up
-		auto btnBMoveAction = CCMoveTo::create(2.0f, CCPoint{bottomMenu->getPositionX(), targetBY});
+		auto btnBMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{bottomMenu->getPositionX(), targetBY});
 		auto easeBtnBMoveAction = CCEaseExponentialOut::create(btnBMoveAction);
 
 		// Run Movement
@@ -103,8 +113,8 @@ class $modify(MyMenuLayer, MenuLayer) {
 		userName->setPosition(startPX, profileY * 2 + 10.0f);
 
 		// Slide Right
-		auto btnPMoveAction = CCMoveTo::create(2.0f, CCPoint{targetPX, profileY});
-		auto uNMoveAction = CCMoveTo::create(2.0f, CCPoint{targetPX / 2, profileY * 2 - 10});
+		auto btnPMoveAction = CCMoveTo::create(speed + 1.5f, CCPoint{targetPX, profileY});
+		auto uNMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetPX / 2, profileY * 2 - 10});
 		auto easeBtnPMoveAction = CCEaseExponentialOut::create(btnPMoveAction);
 		auto easeUNMoveAction = CCEaseExponentialOut::create(uNMoveAction);
 
@@ -117,11 +127,16 @@ class $modify(MyMenuLayer, MenuLayer) {
 		float startMGX = 999.0f;
 		float targetMGX = 500.0f;
 
+		// Fixes The 4:3 bug
+		if (fourXThreeFix) {
+			targetMGX = 400.0f;
+		}
+
 		// Start Next To Screen Right
 		moreGames->setPosition(startMGX, profileY); // A Bit Of Reusing
 
 		// Slide Left
-		auto btnMGMoveAction = CCMoveTo::create(2.0f, CCPoint{targetMGX, profileY});
+		auto btnMGMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetMGX, profileY});
 		auto easeBtnMGMoveAction = CCEaseExponentialOut::create(btnMGMoveAction);
 
 		// Run Action
@@ -135,11 +150,31 @@ class $modify(MyMenuLayer, MenuLayer) {
 		rightSideMenu->setPosition(startMGX, rSMDY);
 
 		// Slide
-		auto grpRSMMoveAction = CCMoveTo::create(2.0f, CCPoint{targetMGX + 20.0f, rSMDY});
+		auto grpRSMMoveAction = CCMoveTo::create(speed + 2.0f, CCPoint{targetMGX + 20.0f, rSMDY});
 		auto easeGrpRSMMoveAction = CCEaseExponentialOut::create(grpRSMMoveAction);
 
 		// Run Action
 		rightSideMenu->runAction(easeGrpRSMMoveAction);
+
+		if (extraBtns) {
+			// Add Extra Buttons
+			auto credits = CCMenuItemSpriteExtra::create(
+				CCSprite::createWithSpriteFrameName("communityCreditsBtn_001.png"),
+				this,
+				menu_selector(MyMenuLayer::creditsBtnClicked)
+			);
+
+			auto changelog = CCMenuItemSpriteExtra::create(
+				CCSprite::createWithSpriteFrameName("GJ_chatBtn_001.png"),
+				this,
+				menu_selector(MyMenuLayer::changelogBtnClicked)
+			);
+
+			bottomMenu->addChild(changelog);
+			bottomMenu->addChild(credits);
+			credits->setScale(1.3f);
+			changelog->setScale(1.1f);
+		}
 
 		return true;
 	}
@@ -148,6 +183,22 @@ class $modify(MyMenuLayer, MenuLayer) {
 		FLAlertLayer::create(
 			"Mod Info",
 			"This Mod Reworks The Main Menu With Animations and other!",
+			"OK"
+		)->show();
+	};
+
+	void creditsBtnClicked(CCObject* sender) {
+		FLAlertLayer::create(
+			"Credits",
+			"Thank You, Rob For Making This Awesome Game, Thanks Geode Team For This Mod Loader, and Thank You For Downloading This Mod!",
+			"OK"
+		)->show();
+	};
+
+	void changelogBtnClicked(CCObject* sender) {
+		FLAlertLayer::create(
+			"Changelog",
+			"v1.1.0: Added 4:3 fix and More Buttons",
 			"OK"
 		)->show();
 	}

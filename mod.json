@@ -8,11 +8,18 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.0.1",
+	"version": "v1.1.0",
 	"developer": "Bluescratch",
-	"description": "Main Menu Reworked",
+	"description": "Update v1.1.0: fixed 4:3 device bug. Menu +",
 	"dependencies": {
-		"geode.node-ids": ">=v1.20.0"
+		"geode.node-ids": {
+			"version": ">=1.20.0",
+			"importance": "required"
+		},
+		"cvolton.misc_bugfixes": {
+			"importance": "suggested",
+			"version": ">=1.8.0"
+		}
 	},
 	"incompatibilities": {
 		"ninxout.redash": {
@@ -26,17 +33,61 @@
 	"settings": {
 		"main-menu-plus-settings": {
 			"type": "title",
-			"name": "Main Menu Plus Settings"
+			"name": "Settings"
 		},
 		"toggle-moreGames": {
 			"type":"bool",
 			"name": "Toggle More Games",
 			"description": "Toggles The More Games Button",
 			"default": false
+		},
+		"4x3Fix": {
+			"type": "bool",
+			"default": false,
+			"name": "4:3 Fix",
+			"description": "BugFix For The 4:3 screen ratio bug",
+			"platforms": [
+				"mobile"
+			]
+		},
+		"extra-buttons": {
+			"type": "bool",
+			"default": false,
+			"name": "Extra Buttons",
+			"description": "Adds Extra Buttons Like Credits And Changelog"
+		},
+		"disable-info": {
+			"type": "bool",
+			"default": false,
+			"description": "If On, Disables The Extra Mod Info Btn",
+			"name": "Disable Info Btn"
+		},
+		"slide-speed": {
+			"type": "int",
+			"default": 2,
+			"name": "Anim Speed",
+			"description": "Sets The Speed Of The Animations",
+			"min": 1,
+			"max": 6,
+			"control": {
+				"arrow-step": 1,
+				"arrows": true,
+				"slider": true,
+				"slider-step": 1,
+				"input": true
+			},
+			"enable-if": "enable-change-slide"
+		},
+
+		"enable-change-slide": {
+			"default": false,
+			"name": "Enable Slide Value Changing",
+			"description": "Enables The Changing Of The Slide Speed",
+			"type": "bool"
 		}
 	},
 	"links": {
-		"source": "https://github.com/Bluescratch7545/Main-Menu.Plus"
+		"source": "https://github.com/Bluescratch7545/Main-Menu-Plus"
 	}
 }
 
