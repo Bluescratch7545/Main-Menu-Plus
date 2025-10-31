@@ -8,6 +8,26 @@ class $modify(MyMenuLayer, MenuLayer) {
 	bool init() {
 		if (!MenuLayer::init()) return false;
 
+		// Define enable
+		auto enable = Mod::get()->getSettingValue<bool>("enable-mod");
+
+		// Needed for the mod to work even if its desabled with the toggle
+		float profileY = 45.0f;
+		auto profileMenu = getChildByID("profile-menu");
+		auto userName = getChildByID("player-username");
+
+		// Explainable
+		if (!enable) {
+			profileMenu->setPositionY(profileY);
+			userName->setPositionY(profileY *2 -5.0f);
+		}
+
+		// Define redashSupport
+		auto reDashSupport = Mod::get()->getSettingValue<bool>("redash-support");
+
+		// Define slideType
+		auto slideType = Mod::get()->getSettingValue<std::string>("slide-type");
+
 		// Makes The Speed Of The Anims Be Diff Using Setting
 		auto speed = Mod::get()->getSettingValue<int64_t>("slide-speed");
 
@@ -16,9 +36,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 		// Define 4x3Fix
 		auto fourXThreeFix = Mod::get()->getSettingValue<bool>("4x3Fix");
-
-		// Define extraBtns
-		auto extraBtns = Mod::get()->getSettingValue<bool>("extra-buttons");
 
 		// Define infoBtn
 		auto infoBtn = Mod::get()->getSettingValue<bool>("disable-info");
@@ -41,164 +58,222 @@ class $modify(MyMenuLayer, MenuLayer) {
 			moreGames->setPosition({-1000, 1000});
 		}
 
-		// Define Logo
-		auto Logo = this->getChildByID("main-title");
+		if (enable) {
+			// Define Logo
+			auto Logo = this->getChildByID("main-title");
 
-		// SLides The Title In
-		if (Logo) {
-			// Start The Logo Up, Up, And Above!
-			Logo->setPosition(CCPoint{winSize.width / 2, winSize.height + 100});
+			// SLides The Title In
+			if (Logo) {
+				// Start The Logo Up, Up, And Above!
+				Logo->setPosition(CCPoint{winSize.width / 2, winSize.height + 100});
 
-			// Slide To Normal, Boring Position
-			auto logoMoveAction = CCMoveTo::create(speed + 3.0f, CCPoint{winSize.width / 2, winSize.height - 70});
-			// Makes The movement exponential out instead of having movement type: none
-			auto easeLogoMoveAction = CCEaseExponentialOut::create(logoMoveAction);
-			Logo->runAction(easeLogoMoveAction);
-		}
+				// Slide To Normal, Boring Position
+				auto logoMoveAction = CCMoveTo::create(speed + 3.0f, CCPoint{winSize.width / 2, winSize.height - 70});
+				// Defines All 3 Way Of Moving
+				auto easeEXPLogoMoveAction = CCEaseExponentialOut::create(logoMoveAction);
+				auto easeBNCLogoMoveAction = CCEaseBounceOut::create(logoMoveAction);
+				auto easeBCKLogoMoveAction = CCEaseBackOut::create(logoMoveAction);
 
-		// Define bottomMenu
-		auto bottomMenu = getChildByID("bottom-menu");
+				// Main Thing That Defines What Movement To Use (i will refer to it as MVMNTD)
+				if (slideType == "Exponential Out") {
+					Logo->runAction(easeEXPLogoMoveAction);
+				}
+				else if (slideType == "Bounce Out") {
+					Logo->runAction(easeBNCLogoMoveAction);
+				}
+				else {
+					Logo->runAction(easeBCKLogoMoveAction);
+				}
+			}
 
-		// Mod Info Btn
-		if (!infoBtn) {
-			auto modInfoBtn = CCMenuItemSpriteExtra::create(
-				CCSprite::createWithSpriteFrameName("GJ_infoBtn_001.png"),
-				this,
-				menu_selector(MyMenuLayer::modInfoBtnClicked)
-			);
+			// Define bottomMenu
+			auto bottomMenu = getChildByID("bottom-menu");
 
-			bottomMenu->addChild(modInfoBtn);
-			modInfoBtn->setScale(1.05f);
-		}
+			// Mod Info Btn
+			if (!infoBtn) {
+				auto modInfoBtn = CCMenuItemSpriteExtra::create(
+					CCSprite::createWithSpriteFrameName("GJ_infoBtn_001.png"),
+					this,
+					menu_selector(MyMenuLayer::modInfoBtnClicked)
+				);
 
-		// Slides The Center Buttons
-		auto mainMenu = getChildByID("main-menu");
+				modInfoBtn->setID("main.menu.plus/info-button");
 
-		float startY = -200.0f; // Start Pos
-		float targetMY = 160.0f; // Target Pos
+				bottomMenu->addChild(modInfoBtn);
+				modInfoBtn->setScale(1.05f);
+			}
 
-		// Start below screen
-		mainMenu->setPositionY(startY);
+			// Needed.
+			float startY = -200.0f; // Start Pos
 
-		// Slide Up
-		auto btnMMoveAction = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetMY});
-		auto easeBtnMMoveAction = CCEaseExponentialOut::create(btnMMoveAction);
+			if (!reDashSupport) {		
 
-		// Run Movement
-		mainMenu->runAction(easeBtnMMoveAction);
+				// Slides The Center Buttons
+				auto mainMenu = getChildByID("main-menu");
 
-		// Slide Bottom menu
-		float targetBY = 45.0f;
+				float targetMY = 160.0f; // Target Pos
 
-		// Start below Screen (again)
-		bottomMenu->setPositionY(startY);
+				// Start below screen
+				mainMenu->setPositionY(startY);
 
-		// Slide Up
-		auto btnBMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{bottomMenu->getPositionX(), targetBY});
-		auto easeBtnBMoveAction = CCEaseExponentialOut::create(btnBMoveAction);
+				// Slide Up
+				auto btnMMoveAction = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetMY});
+				auto easeEXPBtnMMoveAction = CCEaseExponentialOut::create(btnMMoveAction);
+				auto easeBNCBtnMMoveAction = CCEaseBounceOut::create(btnMMoveAction);
+				auto easeBCKBtnMMoveAction = CCEaseBackOut::create(btnMMoveAction);
 
-		// Run Movement
-		bottomMenu->runAction(easeBtnBMoveAction);
+				// Depends on the slideType setting
+				// runs movement
+				if (slideType == "Exponential Out") {
+					mainMenu->runAction(easeEXPBtnMMoveAction);
+				}
+				else if (slideType == "Bounce Out") {
+					mainMenu->runAction(easeBNCBtnMMoveAction);
+				}
+				else {
+					mainMenu->runAction(easeBCKBtnMMoveAction);
+				}
+			}
+			// Slide Bottom menu
+			float targetBY = 45.0f;
 
-		// Slide Profile
-		auto profileMenu = getChildByID("profile-menu");
-		auto userName = getChildByID("player-username");
+			// Needed.
+			if (reDashSupport) {
+				targetBY = 153.0f;
+			}
 
-		float profileY = targetBY;
-		float startPX = 0.0f;
-		float targetPX = 90.0f;
+			// Start below Screen (again)
+			bottomMenu->setPositionY(startY);
 
-		// Start NEXT TO screen
-		profileMenu->setPosition(startPX, profileY);
-		userName->setPosition(startPX, profileY * 2 + 10.0f);
+			// Slide Up
+			auto btnBMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{bottomMenu->getPositionX(), targetBY});
+			auto easeEXPBtnBMoveAction = CCEaseExponentialOut::create(btnBMoveAction);
+			auto easeBNCBtnBMoveAction = CCEaseBounceOut::create(btnBMoveAction);
+			auto easeBCKBtnBMoveAction = CCEaseBackOut::create(btnBMoveAction);
 
-		// Slide Right
-		auto btnPMoveAction = CCMoveTo::create(speed + 1.5f, CCPoint{targetPX, profileY});
-		auto uNMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetPX / 2, profileY * 2 - 10});
-		auto easeBtnPMoveAction = CCEaseExponentialOut::create(btnPMoveAction);
-		auto easeUNMoveAction = CCEaseExponentialOut::create(uNMoveAction);
+			// Run Movement
+			if (slideType == "Exponential Out") {
+				bottomMenu->runAction(easeEXPBtnBMoveAction);
+			}
+			else if (slideType == "Bounce Out") {
+				bottomMenu->runAction(easeBNCBtnBMoveAction);
+			}
+			else {
+				bottomMenu->runAction(easeBCKBtnBMoveAction);
+			}
 
-		// Run Movement
-		profileMenu->runAction(easeBtnPMoveAction);
-		userName->runAction(easeUNMoveAction);
 
-		// This Will Work If moreGamesValue is True
-		// Slides More Games
-		float startMGX = 999.0f;
-		float targetMGX = 500.0f;
+			// Slide Profile
+			float startPX = 0.0f;
+			float targetPX = 90.0f;
+			float targetUNX = 45.0f;
 
-		// Fixes The 4:3 bug
-		if (fourXThreeFix) {
-			targetMGX = 400.0f;
-		}
+			// Needed.
+			if (reDashSupport) {
+				profileY = 30.0f;
+				targetPX = 95.0f;
+				targetUNX = 55.0f;
+			}
 
-		// Start Next To Screen Right
-		moreGames->setPosition(startMGX, profileY); // A Bit Of Reusing
+			// Start NEXT TO screen
+			profileMenu->setPositionX(startPX);
+			userName->setPositionX(startPX);
 
-		// Slide Left
-		auto btnMGMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetMGX, profileY});
-		auto easeBtnMGMoveAction = CCEaseExponentialOut::create(btnMGMoveAction);
+			// Slide Right
+			auto btnPMoveAction = CCMoveTo::create(speed + 1.5f, CCPoint{targetPX, profileY});
+			auto uNMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY * 2 - 5});
+			auto easeEXPBtnPMoveAction = CCEaseExponentialOut::create(btnPMoveAction);
+			auto easeEXPUNMoveAction = CCEaseExponentialOut::create(uNMoveAction);
+			auto easeBNCBtnPMoveAction = CCEaseBounceOut::create(btnPMoveAction);
+			auto easeBNCUNMoveAction = CCEaseBounceOut::create(uNMoveAction);
+			auto easeBCKBtnPMoveAction = CCEaseBackOut::create(btnPMoveAction);
+			auto easeBCKUNMoveAction = CCEaseBackOut::create(uNMoveAction);
 
-		// Run Action
-		moreGames->runAction(easeBtnMGMoveAction);
+			// Run Movement
+			if (slideType == "Exponential Out") {
+				profileMenu->runAction(easeEXPBtnPMoveAction);
+				userName->runAction(easeEXPUNMoveAction);
+			}
+			else if (slideType == "Bounce Out") {
+				profileMenu->runAction(easeBNCBtnPMoveAction);
+				userName->runAction(easeBNCUNMoveAction);
+			}
+			else {
+				profileMenu->runAction(easeBCKBtnPMoveAction);
+				userName->runAction(easeBCKUNMoveAction);
+			}
 
-		// Slide Right Side Menu (btw im getting bored of saying "SLIDE THE _________________________")
-		auto rightSideMenu = getChildByID("right-side-menu");
-		auto rSMDY = rightSideMenu->getPositionY();
+			// Needed.
+			float startMGX = 999.0f;
+			float targetMGX = 500.0f;
 
-		// start off-screen
-		rightSideMenu->setPosition(startMGX, rSMDY);
+			if (reDashSupport) {
+				targetMGX = 309.0f;
+			}
 
-		// Slide
-		auto grpRSMMoveAction = CCMoveTo::create(speed + 2.0f, CCPoint{targetMGX + 20.0f, rSMDY});
-		auto easeGrpRSMMoveAction = CCEaseExponentialOut::create(grpRSMMoveAction);
+			// This Will Work If moreGamesValue is True, but not if reDashSupport is on
+			// Slides More Games
+			if (!reDashSupport) {
+				// fixes The 4:3 bug
+				if (fourXThreeFix) {
+					targetMGX = 400.0f;
+				}
 
-		// Run Action
-		rightSideMenu->runAction(easeGrpRSMMoveAction);
+				// Start Next To Screen Right
+				moreGames->setPosition(startMGX, profileY); // A Bit Of Reusing
 
-		if (extraBtns) {
-			// Add Extra Buttons
-			auto credits = CCMenuItemSpriteExtra::create(
-				CCSprite::createWithSpriteFrameName("communityCreditsBtn_001.png"),
-				this,
-				menu_selector(MyMenuLayer::creditsBtnClicked)
-			);
+				// Slide Left
+				auto btnMGMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetMGX, profileY});
+				auto easeEXPBtnMGMoveAction = CCEaseExponentialOut::create(btnMGMoveAction);
+				auto easeBNCBtnMGMoveAction = CCEaseBounceOut::create(btnMGMoveAction);
+				auto easeBCKBtnMGMoveAction = CCEaseBackOut::create(btnMGMoveAction);
 
-			auto changelog = CCMenuItemSpriteExtra::create(
-				CCSprite::createWithSpriteFrameName("GJ_chatBtn_001.png"),
-				this,
-				menu_selector(MyMenuLayer::changelogBtnClicked)
-			);
+				// Run Action
+				if (slideType == "Exponential Out") {
+					moreGames->runAction(easeEXPBtnMGMoveAction);
+				}
+				else if (slideType == "Bounce Out") {
+					moreGames->runAction(easeBNCBtnMGMoveAction);
+				}
+				else {
+					moreGames->runAction(easeBCKBtnMGMoveAction);
+				}
+			};
 
-			bottomMenu->addChild(changelog);
-			bottomMenu->addChild(credits);
-			credits->setScale(1.3f);
-			changelog->setScale(1.1f);
+			// Slide Right Side Menu
+			auto rightSideMenu = getChildByID("right-side-menu");
+			auto rSMDY = rightSideMenu->getPositionY();
+
+			// start off-screen
+			rightSideMenu->setPosition(startMGX, rSMDY);
+
+			// Slide
+			auto grpRSMMoveAction = CCMoveTo::create(speed + 2.0f, CCPoint{targetMGX + 20.0f, rSMDY}); // More Reusing
+			auto easeEXPGrpRSMMoveAction = CCEaseExponentialOut::create(grpRSMMoveAction);
+			auto easeBNCGrpRSMMoveAction = CCEaseBounceOut::create(grpRSMMoveAction);
+			auto easeBCKGrpRSMMoveAction = CCEaseBackOut::create(grpRSMMoveAction);
+
+			// Run Action
+			if (slideType == "Exponential Out") {
+				rightSideMenu->runAction(easeEXPGrpRSMMoveAction);
+			}
+			else if (slideType == "Bounce Out") {
+				rightSideMenu->runAction(easeBNCGrpRSMMoveAction);
+			}
+			else {
+				rightSideMenu->runAction(easeBCKGrpRSMMoveAction);
+			};
+
 		}
 
 		return true;
+
 	}
 
 	void modInfoBtnClicked(CCObject* sender) {
 		FLAlertLayer::create(
 			"Mod Info",
 			"This Mod Reworks The Main Menu With Animations and other!",
-			"OK"
-		)->show();
-	};
-
-	void creditsBtnClicked(CCObject* sender) {
-		FLAlertLayer::create(
-			"Credits",
-			"Thank You, Rob For Making This Awesome Game, Thanks Geode Team For This Mod Loader, and Thank You For Downloading This Mod!",
-			"OK"
-		)->show();
-	};
-
-	void changelogBtnClicked(CCObject* sender) {
-		FLAlertLayer::create(
-			"Changelog",
-			"v1.1.0: Added 4:3 fix and More Buttons",
 			"OK"
 		)->show();
 	}

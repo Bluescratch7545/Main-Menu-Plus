@@ -2,5 +2,6 @@
     "files.associations": {
         "reflect": "cpp"
     },
-    "geode.textureQuality": "Medium"
+    "geode.textureQuality": "Medium",
+    "C_Cpp.errorSquiggles": "enabled"
 }

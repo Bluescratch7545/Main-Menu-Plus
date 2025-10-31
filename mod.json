@@ -8,9 +8,9 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.1.0",
+	"version": "v1.2.0",
 	"developer": "Bluescratch",
-	"description": "Update v1.1.0: fixed 4:3 device bug. Menu +",
+	"description": "v1.2.0: added slide type setting. Menu +",
 	"dependencies": {
 		"geode.node-ids": {
 			"version": ">=1.20.0",
@@ -21,16 +21,21 @@
 			"version": ">=1.8.0"
 		}
 	},
-	"incompatibilities": {
-		"ninxout.redash": {
-			"version": ">=1.0.0",
-			"importance": "breaking"
-		}
-	},
+
 	"tags": [
 		"interface", "customization", "utility"
 	],
 	"settings": {
+		"mod": {
+			"type": "title",
+			"name": "Other Mod Settings"
+		},
+		"enable-mod": {
+			"default": true,
+			"name": "Enable Mod",
+			"description": "Enables/Disables the Mod without restarting",
+			"type": "bool"
+		},
 		"main-menu-plus-settings": {
 			"type": "title",
 			"name": "Settings"
@@ -50,17 +55,16 @@
 				"mobile"
 			]
 		},
-		"extra-buttons": {
-			"type": "bool",
-			"default": false,
-			"name": "Extra Buttons",
-			"description": "Adds Extra Buttons Like Credits And Changelog"
-		},
 		"disable-info": {
 			"type": "bool",
 			"default": false,
 			"description": "If On, Disables The Extra Mod Info Btn",
-			"name": "Disable Info Btn"
+			"name": "Disable Info Btn",
+			"enable-if": "enable-mod"
+		},
+		"slide-value-settings": {
+			"type": "title",
+			"name": "Slide Settings"
 		},
 		"slide-speed": {
 			"type": "int",
@@ -84,6 +88,23 @@
 			"name": "Enable Slide Value Changing",
 			"description": "Enables The Changing Of The Slide Speed",
 			"type": "bool"
+		},
+		"slide-type": {
+			"type": "string",
+			"one-of": ["Bounce Out", "Exponential Out", "Back Out"],
+			"default": "Back Out",
+			"name": "Slide Type",
+			"description": "What The Slide Type Should Be"
+		},
+		"support-options": {
+			"type": "title",
+			"name": "Support Options"
+		},
+		"redash-support": {
+			"type": "bool",
+			"default": false,
+			"name": "OMM Support",
+			"description": "Adds Support For Overcharged Main Menu <cr> WARNING: STILL IN BETA"
 		}
 	},
 	"links": {
