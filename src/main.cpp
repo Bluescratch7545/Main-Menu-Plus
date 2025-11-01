@@ -1,12 +1,28 @@
 #include <Geode/Geode.hpp>
+#include <Geode/ui/GeodeUI.hpp>
+#include <geode.custom-keybinds/include/Keybinds.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 
 using namespace geode::prelude;
+using namespace keybinds;
+
+$execute {
+	BindManager::get()->registerBindable({
+		"open-settings"_spr,
+		"Main Menu Plus: Open Settings",
+		"Open Settings for Main Menu Plus",
+		{ Keybind::create(KEY_Q, Modifier::None) },
+		"Main Menu Plus/ Open Settings"
+	});
+}
 
 class $modify(MyMenuLayer, MenuLayer) {
 	$override
 	bool init() {
 		if (!MenuLayer::init()) return false;
+
+		// Define targetMGXSetting
+		auto targetMGXSetting = Mod::get()->getSettingValue<int64_t>("more-games-target-pos");
 
 		// Define enable
 		auto enable = Mod::get()->getSettingValue<bool>("enable-mod");
@@ -60,7 +76,8 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 		if (enable) {
 			// Define Logo
-			auto Logo = this->getChildByID("main-title");
+			auto Logo = getChildByID("main-title");
+			
 
 			// SLides The Title In
 			if (Logo) {
@@ -92,7 +109,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			// Mod Info Btn
 			if (!infoBtn) {
 				auto modInfoBtn = CCMenuItemSpriteExtra::create(
-					CCSprite::createWithSpriteFrameName("GJ_infoBtn_001.png"),
+					CCSprite::createWithSpriteFrameName("GJ_plainBtn_001.png"),
 					this,
 					menu_selector(MyMenuLayer::modInfoBtnClicked)
 				);
@@ -100,7 +117,15 @@ class $modify(MyMenuLayer, MenuLayer) {
 				modInfoBtn->setID("main.menu.plus/info-button");
 
 				bottomMenu->addChild(modInfoBtn);
-				modInfoBtn->setScale(1.05f);
+				modInfoBtn->setScale(1.1f);
+
+				auto modInfoBtnText = CCLabelBMFont::create("?", "bigFont.fnt");
+
+				modInfoBtnText->setID("main.menu.plus/btn-text");
+
+				modInfoBtn->addChild(modInfoBtnText);
+
+				modInfoBtnText->setPosition({23.875, 25.500});
 			}
 
 			// Needed.
@@ -162,6 +187,35 @@ class $modify(MyMenuLayer, MenuLayer) {
 				bottomMenu->runAction(easeBCKBtnBMoveAction);
 			}
 
+			// settings shortcut
+			auto modSettingsBtn = CCMenuItemSpriteExtra::create(
+				CCSprite::createWithSpriteFrameName("GJ_plainBtn_001.png"),
+				this,
+				menu_selector(MyMenuLayer::modSettingsBtnClicked)
+			);
+
+			modSettingsBtn->setID("main.menu.plus/settings-button");
+
+			bottomMenu->addChild(modSettingsBtn);
+
+			// add text for setting shortcut btn
+			auto modSettingsBtnText = CCLabelBMFont::create("MS", "goldFont.fnt");
+
+			modSettingsBtnText->setID("main.menu.plus/btn-text-settings");
+			modSettingsBtnText->setScale(0.5f);
+
+			modSettingsBtn->addChild(modSettingsBtnText);
+
+			modSettingsBtnText->setPosition({23.5, 24});
+
+			auto modSettingsBtnCog = CCSprite::createWithSpriteFrameName("blackCogwheel_02_color_001.png");
+			modSettingsBtnCog->setScale(0.7f);
+			modSettingsBtnCog->setPosition({23.5, 24});
+			modSettingsBtnCog->setID("main.menu.plus/btn-overlay");
+			modSettingsBtnCog->setColor({ 255, 208, 0 });
+
+			modSettingsBtn->addChild(modSettingsBtnCog);
+
 
 			// Slide Profile
 			float startPX = 0.0f;
@@ -205,10 +259,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			// Needed.
 			float startMGX = 999.0f;
-			float targetMGX = 500.0f;
+			float targetMGX = targetMGXSetting * 100;
 
 			if (reDashSupport) {
-				targetMGX = 309.0f;
+				targetMGX = targetMGXSetting * 100 - 191.0f;
 			}
 
 			// This Will Work If moreGamesValue is True, but not if reDashSupport is on
@@ -216,7 +270,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			if (!reDashSupport) {
 				// fixes The 4:3 bug
 				if (fourXThreeFix) {
-					targetMGX = 400.0f;
+					targetMGX = targetMGXSetting * 100 - 100.0f;
 				}
 
 				// Start Next To Screen Right
@@ -264,6 +318,14 @@ class $modify(MyMenuLayer, MenuLayer) {
 				rightSideMenu->runAction(easeBCKGrpRSMMoveAction);
 			};
 
+			this->addEventListener<InvokeBindFilter>([=](InvokeBindEvent* event) {
+				if (event->isDown()) {
+					openSettingsPopup(Mod::get(), false);
+				}
+
+				return ListenerResult::Propagate;
+			}, "open-settings"_spr);
+
 		}
 
 		return true;
@@ -276,5 +338,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 			"This Mod Reworks The Main Menu With Animations and other!",
 			"OK"
 		)->show();
+	}
+
+	void modSettingsBtnClicked(CCObject* sender) {
+		openSettingsPopup(Mod::get(), false);
+		log::info("Opened Settings");
 	}
 };

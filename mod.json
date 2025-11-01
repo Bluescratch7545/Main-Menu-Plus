@@ -8,9 +8,9 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.2.0",
+	"version": "v1.3.0",
 	"developer": "Bluescratch",
-	"description": "v1.2.0: added slide type setting. Menu +",
+	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
 		"geode.node-ids": {
 			"version": ">=1.20.0",
@@ -19,6 +19,10 @@
 		"cvolton.misc_bugfixes": {
 			"importance": "suggested",
 			"version": ">=1.8.0"
+		},
+		"geode.custom-keybinds": {
+			"version": ">=v1.0.0",
+			"importance": "required"
 		}
 	},
 
@@ -35,6 +39,24 @@
 			"name": "Enable Mod",
 			"description": "Enables/Disables the Mod without restarting",
 			"type": "bool"
+		},
+		"more-games-target-pos": {
+			"default": 5,
+			"type": "int",
+			"name": "MG & RSM Target Pos",
+			"description": "Sets The Target Position Of The More Games & Right side Buttons",
+			"control": {
+				"input": true,
+				"arrows": true,
+				"arrow-step": 1,
+				"slider": true,
+				"slider-step": 1,
+				"big-arrows": true,
+				"big-arrow-step": 3
+			},
+			"min": 4,
+			"max": 10,
+			"enable-if": "enable-mod"
 		},
 		"main-menu-plus-settings": {
 			"type": "title",
