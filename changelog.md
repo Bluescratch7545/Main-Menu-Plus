@@ -1,3 +1,6 @@
+# v1.3.0
+bye ios support
+
 # 1.2.0
 Added Slide Type Changing (Back Out Looked Good So Thats The Default)
 
