@@ -1,20 +1,8 @@
 #include <Geode/Geode.hpp>
 #include <Geode/ui/GeodeUI.hpp>
-#include <geode.custom-keybinds/include/Keybinds.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 
 using namespace geode::prelude;
-using namespace keybinds;
-
-$execute {
-	BindManager::get()->registerBindable({
-		"open-settings"_spr,
-		"Main Menu Plus: Open Settings",
-		"Open Settings for Main Menu Plus",
-		{ Keybind::create(KEY_Q, Modifier::None) },
-		"Main Menu Plus/ Open Settings"
-	});
-}
 
 class $modify(MyMenuLayer, MenuLayer) {
 	$override
@@ -317,17 +305,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			else {
 				rightSideMenu->runAction(easeBCKGrpRSMMoveAction);
 			};
-
-			this->addEventListener<InvokeBindFilter>([=](InvokeBindEvent* event) {
-				if (event->isDown()) {
-					openSettingsPopup(Mod::get(), false);
-				}
-
-				return ListenerResult::Propagate;
-			}, "open-settings"_spr);
-
 		}
-
 		return true;
 
 	}
