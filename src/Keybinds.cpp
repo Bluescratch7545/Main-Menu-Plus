@@ -1,4 +1,5 @@
 #include <Geode/Geode.hpp>
+#ifndef GEODE_IS_IOS
 #include <Geode/ui/GeodeUI.hpp>
 #include <geode.custom-keybinds/include/Keybinds.hpp>
 
@@ -22,4 +23,4 @@ $execute {
 	return ListenerResult::Propagate;
     }, InvokeBindFilter(nullptr, "open-settings"_spr));
 };
-
+#endif

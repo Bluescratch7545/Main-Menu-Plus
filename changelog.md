@@ -1,4 +1,7 @@
-# v1.3.0
+# 1.4.0
+Re-added iOS support, and added social media menu toggle
+
+# 1.3.0
 bye ios support
 
 # 1.2.0

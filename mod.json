@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.3.0",
+	"version": "v1.4.0",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -67,6 +67,12 @@
 			"name": "Toggle More Games",
 			"description": "Toggles The More Games Button",
 			"default": false
+		},
+		"toggle-links":{
+			"name": "Toggle Social Media Menu",
+			"description": "toggles the social media menu",
+			"default": false,
+			"type": "bool"
 		},
 		"4x3Fix": {
 			"type": "bool",

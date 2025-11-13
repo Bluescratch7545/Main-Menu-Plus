@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "reflect": "cpp"
+        "reflect": "cpp",
+        "chrono": "cpp"
     },
     "geode.textureQuality": "Medium",
     "C_Cpp.errorSquiggles": "enabled"

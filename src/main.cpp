@@ -44,20 +44,28 @@ class $modify(MyMenuLayer, MenuLayer) {
 		// Define infoBtn
 		auto infoBtn = Mod::get()->getSettingValue<bool>("disable-info");
 
-		// DELETE social media thing
-		if (auto links = this->getChildByID("social-media-menu")) {
-			links->setVisible(false);
-			links->setPosition({-1000, 1000});
-		}
+		// Define moreGamesBtn
+		auto moreGamesBtn = Mod::get()->getSettingValue<bool>("toggle-moreGames");
 
-		// Define moreGamesValue
-		auto moreGamesValue = Mod::get()->getSettingValue<bool>("toggle-moreGames");
+		// Define linksMenu
+		auto linksMenu = Mod::get()->getSettingValue<bool>("toggle-links");
+
+		// Define links
+		auto links = getChildByID("social-media-menu");
+
+		// if the social media menu is off in the settings, delete the social media menu
+		if (!linksMenu) {
+			if (links) {
+				links->setPosition({-1000, 1000});
+				links->setVisible(false);
+			}
+		}
 
 		// Define moreGames
 		auto moreGames = getChildByID("more-games-menu");
 
 		// If Do Delete More Games
-		if (!moreGamesValue) {
+		if (!moreGamesBtn) {
 			moreGames->setVisible(false);
 			moreGames->setPosition({-1000, 1000});
 		}
@@ -69,26 +77,25 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			// SLides The Title In
 			if (Logo) {
-				// Start The Logo Up, Up, And Above!
-				Logo->setPosition(CCPoint{winSize.width / 2, winSize.height + 100});
+				// Move Logo
+				Logo->setPosition({ winSize.width / 2, winSize.height + 100});
 
-				// Slide To Normal, Boring Position
-				auto logoMoveAction = CCMoveTo::create(speed + 3.0f, CCPoint{winSize.width / 2, winSize.height - 70});
-				// Defines All 3 Way Of Moving
-				auto easeEXPLogoMoveAction = CCEaseExponentialOut::create(logoMoveAction);
+        		auto logoMoveAction = CCMoveTo::create(speed + 3.0f, CCPoint{winSize.width / 2, winSize.height - 70});
+
+     			//Movement define
+        		auto easeEXPLogoMoveAction = CCEaseExponentialOut::create(logoMoveAction);
 				auto easeBNCLogoMoveAction = CCEaseBounceOut::create(logoMoveAction);
 				auto easeBCKLogoMoveAction = CCEaseBackOut::create(logoMoveAction);
 
-				// Main Thing That Defines What Movement To Use (i will refer to it as MVMNTD)
-				if (slideType == "Exponential Out") {
-					Logo->runAction(easeEXPLogoMoveAction);
-				}
-				else if (slideType == "Bounce Out") {
-					Logo->runAction(easeBNCLogoMoveAction);
-				}
-				else {
-					Logo->runAction(easeBCKLogoMoveAction);
-				}
+       			if (slideType == "Exponential Out") {
+            		Logo->runAction(easeEXPLogoMoveAction);
+        		}
+        		else if (slideType == "Bounce Out") {
+           			Logo->runAction(easeBNCLogoMoveAction);
+        		}
+        		else {
+           			Logo->runAction(easeBCKLogoMoveAction);
+        		}
 			}
 
 			// Define bottomMenu
@@ -149,6 +156,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			}
 			// Slide Bottom menu
 			float targetBY = 45.0f;
+			auto bottomMenuXPos = bottomMenu->getPositionX();
 
 			// Needed.
 			if (reDashSupport) {
@@ -159,7 +167,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 			bottomMenu->setPositionY(startY);
 
 			// Slide Up
-			auto btnBMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{bottomMenu->getPositionX(), targetBY});
+			auto btnBMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{bottomMenuXPos, targetBY});
 			auto easeEXPBtnBMoveAction = CCEaseExponentialOut::create(btnBMoveAction);
 			auto easeBNCBtnBMoveAction = CCEaseBounceOut::create(btnBMoveAction);
 			auto easeBCKBtnBMoveAction = CCEaseBackOut::create(btnBMoveAction);
@@ -173,6 +181,32 @@ class $modify(MyMenuLayer, MenuLayer) {
 			}
 			else {
 				bottomMenu->runAction(easeBCKBtnBMoveAction);
+			}
+
+			// Slides the links menu, ONLY if the linksMenu is True
+			if (linksMenu) {
+				// Define The Needed Thing
+				auto linksXPos = links->getPositionX();
+				// Start under screen
+				links->setPosition({linksXPos, startY});
+				
+				// Define Movement
+				auto grpLinksMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{linksXPos, targetBY - 33.0f});
+				auto easeEXPGrpLinksMoveAction = CCEaseExponentialOut::create(grpLinksMoveAction);
+				auto easeBNCGrpLinksMoveAction = CCEaseBounceOut::create(grpLinksMoveAction);
+				auto easeBCKGrpLinksMoveAction = CCEaseBackOut::create(grpLinksMoveAction);
+
+				// Run Movement
+				if (slideType == "Exponential Out") {
+					links->runAction(easeEXPGrpLinksMoveAction);
+				}
+				else if (slideType == "Bounce Out") {
+					links->runAction(easeBNCGrpLinksMoveAction);
+				}
+				else {
+					links->runAction(easeBCKGrpLinksMoveAction);
+				}
+				
 			}
 
 			// settings shortcut
@@ -209,12 +243,19 @@ class $modify(MyMenuLayer, MenuLayer) {
 			float startPX = 0.0f;
 			float targetPX = 90.0f;
 			float targetUNX = 45.0f;
+			float uNYDeviation = 40.0f;
 
 			// Needed.
 			if (reDashSupport) {
 				profileY = 30.0f;
 				targetPX = 95.0f;
 				targetUNX = 55.0f;
+				uNYDeviation = 25.0f;
+			}
+			
+			if (linksMenu) {
+				profileY = 95.0f;
+				uNYDeviation = 35.0f;
 			}
 
 			// Start NEXT TO screen
@@ -223,7 +264,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			// Slide Right
 			auto btnPMoveAction = CCMoveTo::create(speed + 1.5f, CCPoint{targetPX, profileY});
-			auto uNMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY * 2 - 5});
+			auto uNMoveAction = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY + uNYDeviation});
 			auto easeEXPBtnPMoveAction = CCEaseExponentialOut::create(btnPMoveAction);
 			auto easeEXPUNMoveAction = CCEaseExponentialOut::create(uNMoveAction);
 			auto easeBNCBtnPMoveAction = CCEaseBounceOut::create(btnPMoveAction);
@@ -253,7 +294,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 				targetMGX = targetMGXSetting * 100 - 191.0f;
 			}
 
-			// This Will Work If moreGamesValue is True, but not if reDashSupport is on
+			// This Will Work If moreGamesBtn is True, but not if reDashSupport is on
 			// Slides More Games
 			if (!reDashSupport) {
 				// fixes The 4:3 bug
