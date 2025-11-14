@@ -50,8 +50,14 @@ class $modify(MyMenuLayer, MenuLayer) {
 		// Define linksMenu
 		auto linksMenu = Mod::get()->getSettingValue<bool>("toggle-links");
 
+		// Define btnRepos
+		auto btnRepos = Mod::get()->getSettingValue<bool>("btn-repos");
+
 		// Define links
 		auto links = getChildByID("social-media-menu");
+
+		// Define leftSideMenu
+		auto leftSideMenu = getChildByID("side-menu");
 
 		// if the social media menu is off in the settings, delete the social media menu
 		if (!linksMenu) {
@@ -100,28 +106,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			// Define bottomMenu
 			auto bottomMenu = getChildByID("bottom-menu");
-
-			// Mod Info Btn
-			if (!infoBtn) {
-				auto modInfoBtn = CCMenuItemSpriteExtra::create(
-					CCSprite::createWithSpriteFrameName("GJ_plainBtn_001.png"),
-					this,
-					menu_selector(MyMenuLayer::modInfoBtnClicked)
-				);
-
-				modInfoBtn->setID("main.menu.plus/info-button");
-
-				bottomMenu->addChild(modInfoBtn);
-				modInfoBtn->setScale(1.1f);
-
-				auto modInfoBtnText = CCLabelBMFont::create("?", "bigFont.fnt");
-
-				modInfoBtnText->setID("main.menu.plus/btn-text");
-
-				modInfoBtn->addChild(modInfoBtnText);
-
-				modInfoBtnText->setPosition({23.875, 25.500});
-			}
 
 			// Needed.
 			float startY = -200.0f; // Start Pos
@@ -211,33 +195,77 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			// settings shortcut
 			auto modSettingsBtn = CCMenuItemSpriteExtra::create(
-				CCSprite::createWithSpriteFrameName("GJ_plainBtn_001.png"),
+				CCSprite::createWithSpriteFrameName("accountBtn_settings_001.png"),
 				this,
 				menu_selector(MyMenuLayer::modSettingsBtnClicked)
 			);
 
 			modSettingsBtn->setID("main.menu.plus/settings-button");
 
-			bottomMenu->addChild(modSettingsBtn);
+			// Mod Info Btn
+			if (!infoBtn) {
+				auto modInfoBtn = CCMenuItemSpriteExtra::create(
+					CCSprite::createWithSpriteFrameName("GJ_plainBtn_001.png"),
+					this,
+					menu_selector(MyMenuLayer::modInfoBtnClicked)
+				);
 
-			// add text for setting shortcut btn
-			auto modSettingsBtnText = CCLabelBMFont::create("MS", "goldFont.fnt");
+				modInfoBtn->setID("main.menu.plus/info-button");
 
-			modSettingsBtnText->setID("main.menu.plus/btn-text-settings");
-			modSettingsBtnText->setScale(0.5f);
+				// Fixes The Mobile Issue Of Buttons Overlap
+				if (btnRepos && !reDashSupport) {
+					leftSideMenu->addChild(modInfoBtn);
+				}
+				else {
+					bottomMenu->addChild(modInfoBtn);
+				}
 
-			modSettingsBtn->addChild(modSettingsBtnText);
+				auto modInfoBtnText = CCLabelBMFont::create("?", "bigFont.fnt");
 
-			modSettingsBtnText->setPosition({23.5, 24});
+				modInfoBtnText->setID("main.menu.plus/btn-text");
 
-			auto modSettingsBtnCog = CCSprite::createWithSpriteFrameName("blackCogwheel_02_color_001.png");
-			modSettingsBtnCog->setScale(0.7f);
-			modSettingsBtnCog->setPosition({23.5, 24});
-			modSettingsBtnCog->setID("main.menu.plus/btn-overlay");
-			modSettingsBtnCog->setColor({ 255, 208, 0 });
+				modInfoBtn->addChild(modInfoBtnText);
 
-			modSettingsBtn->addChild(modSettingsBtnCog);
+				modInfoBtnText->setPosition({23.875, 25.500});
+			}
 
+			// Fixes The Mobile Issue Of Buttons Overlap
+			if (btnRepos && !reDashSupport) {
+				leftSideMenu->addChild(modSettingsBtn);
+			}
+			else {
+				bottomMenu->addChild(modSettingsBtn);
+			}
+
+			// Updates The Menus Layout
+			leftSideMenu->updateLayout();
+			bottomMenu->updateLayout();
+
+			// Only Works if btnRepos is set to TRUE
+			if (btnRepos && !reDashSupport) {
+				float startLSMX = -99.0f;
+				float targetLSMX = 25.0f;
+				auto leftSideMenuYPos = leftSideMenu->getPositionY();
+
+				// Start next to screen
+				leftSideMenu->setPositionX(startLSMX);
+
+				// Movement define
+				auto grpLSMMoveAction = CCMoveTo::create(speed + 0.5f, CCPoint{targetLSMX, leftSideMenuYPos});
+				auto easeEXPGrpLSMMoveAction = CCEaseExponentialOut::create(grpLSMMoveAction);
+				auto easeBNCGrpLSMMoveAction = CCEaseBounceOut::create(grpLSMMoveAction);
+				auto easeBCKGrpLSMMoveAction = CCEaseBackOut::create(grpLSMMoveAction);
+
+				if (slideType == "Exponential Out") {
+					leftSideMenu->runAction(easeEXPGrpLSMMoveAction);
+				}
+				else if (slideType == "Bounce Out") {
+					leftSideMenu->runAction(easeBNCGrpLSMMoveAction);
+				}
+				else {
+					leftSideMenu->runAction(easeBCKGrpLSMMoveAction);
+				}
+			}
 
 			// Slide Profile
 			float startPX = 0.0f;
@@ -258,7 +286,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 				uNYDeviation = 35.0f;
 			}
 
-			// Start NEXT TO screen
+			// Start next TO screen
 			profileMenu->setPositionX(startPX);
 			userName->setPositionX(startPX);
 

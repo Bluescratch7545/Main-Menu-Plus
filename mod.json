@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.4.0",
+	"version": "v1.4.1",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -74,6 +74,12 @@
 			"default": false,
 			"type": "bool"
 		},
+		"btn-repos":{
+			"default": false,
+			"name": "Info & Settings Btn Reposition",
+			"description": "(Temporary) Repositions the mod info and mod settings button.",
+			"type": "bool"
+		},
 		"4x3Fix": {
 			"type": "bool",
 			"default": false,
@@ -88,7 +94,8 @@
 			"default": false,
 			"description": "If On, Disables The Extra Mod Info Btn",
 			"name": "Disable Info Btn",
-			"enable-if": "enable-mod"
+			"enable-if": "enable-mod",
+			"enable-if-description": "You Cannot Change This While The Mod Is Off!"
 		},
 		"slide-value-settings": {
 			"type": "title",
