@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.4.1",
+	"version": "v1.4.2",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -22,7 +22,12 @@
 		},
 		"geode.custom-keybinds": {
 			"version": ">=v1.0.0",
-			"importance": "required"
+			"importance": "required",
+			"platforms": [
+				"android",
+				"mac",
+				"win"
+			]
 		}
 	},
 

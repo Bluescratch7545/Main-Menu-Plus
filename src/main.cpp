@@ -20,12 +20,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 		auto profileMenu = getChildByID("profile-menu");
 		auto userName = getChildByID("player-username");
 
-		// Explainable
-		if (!enable) {
-			profileMenu->setPositionY(profileY);
-			userName->setPositionY(profileY *2 -5.0f);
-		}
-
 		// Define redashSupport
 		auto reDashSupport = Mod::get()->getSettingValue<bool>("redash-support");
 
@@ -49,6 +43,12 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 		// Define linksMenu
 		auto linksMenu = Mod::get()->getSettingValue<bool>("toggle-links");
+		
+		// If the mod isnt enabled & linksMenu isnt on, do this
+		if(!linksMenu && !enable) {
+			profileMenu->setPositionY(profileY);
+			userName->setPositionY(profileY * 2 - 5.0f);
+		}
 
 		// Define btnRepos
 		auto btnRepos = Mod::get()->getSettingValue<bool>("btn-repos");
