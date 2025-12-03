@@ -1,3 +1,6 @@
+# 1.4.3
+- Fixed bug where on wierd ratio devices the `more-games-target-pos` would fail
+
 # 1.4.2
 A bugfix update
 - Fixed Links and Profile menu to overlap when the mod isnt enabled
@@ -6,7 +9,7 @@ A bugfix update
 - Re-added iOS support, and added social media menu toggle
 
 # 1.3.0
-- removed iOS support
+- Removed iOS support
 
 # 1.2.0
 - Added Slide Type Changing (Back Out Looked Good So Thats The Default)
@@ -17,4 +20,4 @@ A bugfix update
 
 
 # 1.0.0
-- initial mod release
+- Initial mod release

@@ -9,9 +9,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 	bool init() {
 		if (!MenuLayer::init()) return false;
 
-		// Define targetMGXSetting
-		auto targetMGXSetting = Mod::get()->getSettingValue<int64_t>("more-games-target-pos");
-
 		// Define enable
 		auto enable = Mod::get()->getSettingValue<bool>("enable-mod");
 
@@ -31,9 +28,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 		// Define winSize
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
-
-		// Define 4x3Fix
-		auto fourXThreeFix = Mod::get()->getSettingValue<bool>("4x3Fix");
 
 		// Define infoBtn
 		auto infoBtn = Mod::get()->getSettingValue<bool>("disable-info");
@@ -314,22 +308,39 @@ class $modify(MyMenuLayer, MenuLayer) {
 				userName->runAction(easeBCKUNMoveAction);
 			}
 
+			// Slide Right Side Menu
+			float startRSMX = 1000.0f;
+			auto rightSideMenu = getChildByID("right-side-menu");
+			auto rSMDY = rightSideMenu->getPositionY();
+			float targetRSMX = rightSideMenu->getPositionX();
+
+			// start off-screen
+			rightSideMenu->setPosition(startRSMX, rSMDY);
+
+			// Slide
+			auto grpRSMMoveAction = CCMoveTo::create(speed + 2.0f, CCPoint{targetRSMX, rSMDY}); // More Reusing
+			auto easeEXPGrpRSMMoveAction = CCEaseExponentialOut::create(grpRSMMoveAction);
+			auto easeBNCGrpRSMMoveAction = CCEaseBounceOut::create(grpRSMMoveAction);
+			auto easeBCKGrpRSMMoveAction = CCEaseBackOut::create(grpRSMMoveAction);
+
+			// Run Action
+			if (slideType == "Exponential Out") {
+				rightSideMenu->runAction(easeEXPGrpRSMMoveAction);
+			}
+			else if (slideType == "Bounce Out") {
+				rightSideMenu->runAction(easeBNCGrpRSMMoveAction);
+			}
+			else {
+				rightSideMenu->runAction(easeBCKGrpRSMMoveAction);
+			};
+
 			// Needed.
 			float startMGX = 999.0f;
-			float targetMGX = targetMGXSetting * 100;
-
-			if (reDashSupport) {
-				targetMGX = targetMGXSetting * 100 - 191.0f;
-			}
+			float targetMGX = moreGames->getPositionX();
 
 			// This Will Work If moreGamesBtn is True, but not if reDashSupport is on
 			// Slides More Games
 			if (!reDashSupport) {
-				// fixes The 4:3 bug
-				if (fourXThreeFix) {
-					targetMGX = targetMGXSetting * 100 - 100.0f;
-				}
-
 				// Start Next To Screen Right
 				moreGames->setPosition(startMGX, profileY); // A Bit Of Reusing
 
@@ -349,30 +360,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 				else {
 					moreGames->runAction(easeBCKBtnMGMoveAction);
 				}
-			};
-
-			// Slide Right Side Menu
-			auto rightSideMenu = getChildByID("right-side-menu");
-			auto rSMDY = rightSideMenu->getPositionY();
-
-			// start off-screen
-			rightSideMenu->setPosition(startMGX, rSMDY);
-
-			// Slide
-			auto grpRSMMoveAction = CCMoveTo::create(speed + 2.0f, CCPoint{targetMGX + 20.0f, rSMDY}); // More Reusing
-			auto easeEXPGrpRSMMoveAction = CCEaseExponentialOut::create(grpRSMMoveAction);
-			auto easeBNCGrpRSMMoveAction = CCEaseBounceOut::create(grpRSMMoveAction);
-			auto easeBCKGrpRSMMoveAction = CCEaseBackOut::create(grpRSMMoveAction);
-
-			// Run Action
-			if (slideType == "Exponential Out") {
-				rightSideMenu->runAction(easeEXPGrpRSMMoveAction);
-			}
-			else if (slideType == "Bounce Out") {
-				rightSideMenu->runAction(easeBNCGrpRSMMoveAction);
-			}
-			else {
-				rightSideMenu->runAction(easeBCKGrpRSMMoveAction);
 			};
 		}
 		return true;

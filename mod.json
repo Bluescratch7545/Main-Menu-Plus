@@ -1,5 +1,5 @@
 {
-	"geode": "4.9.0",
+	"geode": "4.10.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.4.2",
+	"version": "v1.4.3",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -45,24 +45,6 @@
 			"description": "Enables/Disables the Mod without restarting",
 			"type": "bool"
 		},
-		"more-games-target-pos": {
-			"default": 5,
-			"type": "int",
-			"name": "MG & RSM Target Pos",
-			"description": "Sets The Target Position Of The More Games & Right side Buttons",
-			"control": {
-				"input": true,
-				"arrows": true,
-				"arrow-step": 1,
-				"slider": true,
-				"slider-step": 1,
-				"big-arrows": true,
-				"big-arrow-step": 3
-			},
-			"min": 4,
-			"max": 10,
-			"enable-if": "enable-mod"
-		},
 		"main-menu-plus-settings": {
 			"type": "title",
 			"name": "Settings"
@@ -84,15 +66,6 @@
 			"name": "Info & Settings Btn Reposition",
 			"description": "(Temporary) Repositions the mod info and mod settings button.",
 			"type": "bool"
-		},
-		"4x3Fix": {
-			"type": "bool",
-			"default": false,
-			"name": "4:3 Fix",
-			"description": "BugFix For The 4:3 screen ratio bug",
-			"platforms": [
-				"mobile"
-			]
 		},
 		"disable-info": {
 			"type": "bool",
@@ -151,5 +124,3 @@
 		"source": "https://github.com/Bluescratch7545/Main-Menu-Plus"
 	}
 }
-
-
