@@ -1,3 +1,6 @@
+# 1.4.4
+- Made the thumbnail better
+
 # 1.4.3
 - Fixed bug where on wierd ratio devices the `more-games-target-pos` would fail
 
