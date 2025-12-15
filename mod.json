@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.4.4",
+	"version": "v1.5.0",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -98,8 +98,8 @@
 
 		"enable-change-slide": {
 			"default": false,
-			"name": "Enable Slide Value Changing",
-			"description": "Enables The Changing Of The Slide Speed",
+			"name": "Enable Slide Changing",
+			"description": "Enables The Changing of all of the slide things",
 			"type": "bool"
 		},
 		"slide-type": {
@@ -107,7 +107,8 @@
 			"one-of": ["Bounce Out", "Exponential Out", "Back Out"],
 			"default": "Back Out",
 			"name": "Slide Type",
-			"description": "What The Slide Type Should Be"
+			"description": "What The Slide Type Should Be",
+			"enable-if": "enable-change-slide"
 		},
 		"support-options": {
 			"type": "title",

@@ -1,3 +1,6 @@
+# 1.5.0
+- Added mod preview thing and made the code cleaner to read for a upcoming update... also thanks to [arthursimao](https://github.com/arthursimao) for the new thumbnail
+
 # 1.4.4
 - Made the thumbnail better
 
