@@ -8,9 +8,10 @@ inline void animateGames(
     const CCSize& winSize,
     float speed,
     const std::string& slideType,
-    bool reDashSupport
+    bool reDashSupport,
+    bool moreGamesValue
 ) {
-    if (reDashSupport) return;
+    if (reDashSupport || !moreGamesValue) return;
 
     auto moreGames = parent->getChildByID("more-games-menu");
     if (!moreGames) return;
@@ -36,4 +37,8 @@ inline void animateGames(
     }
 
     moreGames->runAction(action);
+    
+    auto moreGamesBtn = static_cast<CCMenuItemSpriteExtra*>(moreGames->getChildByID("more-games-button"));
+    moreGamesBtn->setScale(0.7f);
+    moreGamesBtn->m_baseScale = 0.7f;
 }

@@ -9,16 +9,21 @@ inline void animateLinks(
     float speed,
     const std::string& slideType,
     bool linksMenu,
-    bool reDashSupport
+    bool reDashSupport,
+    bool btnRepos
 ) {
     auto links = parent->getChildByID("social-media-menu");
     if (!links) return;
+
     float startY = -200.0f;
     float targetY = 12.0f;
     if (reDashSupport) {
         targetY = 120.0f;
     }
-    auto xPos = links->getPositionX();
+    auto xPos = links->getPositionX() + 28.0f;
+    if (btnRepos) {
+        xPos = links->getPositionX();
+    }
 
     links->setPositionY(startY);
 

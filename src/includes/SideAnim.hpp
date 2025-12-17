@@ -1,5 +1,6 @@
 #pragma once
 #include <Geode/Geode.hpp>
+#include <Geode/utils/cocos.hpp>
 
 using namespace geode::prelude;
 
@@ -11,15 +12,35 @@ inline void animateSide(
     bool btnRepos,
     bool reDashSupport
 ) {
-    if (!btnRepos && reDashSupport) return;
+    if (reDashSupport || btnRepos) return;
 
+    auto bottomMenu = parent->getChildByID("bottom-menu");
     auto leftSideMenu = parent->getChildByID("side-menu");
-    if (!leftSideMenu) return;
+    if (!leftSideMenu || !bottomMenu) return;
+
+    auto children = bottomMenu->getChildrenExt();
+    for (int i = children.size() - 1; i >= 0; i--) {
+        Ref child = children[i];
+        child->removeFromParent();
+        leftSideMenu->addChild(child);
+    }
+    
+    float spacing = 10.0f;
+    auto childrenCount = leftSideMenu->getChildrenCount();
+    float totalHeight = 0.0f;
+
+    for (auto child : leftSideMenu->getChildrenExt()) {
+        totalHeight += child->getContentSize().height * child->getScaleY();
+    }   
+    totalHeight += spacing * (childrenCount - 1);
+
+    leftSideMenu->setContentSize({34.124, 252});
+
     float startX = -99.0f;
     float targetX = 25.0f;
-    auto yPos = leftSideMenu->getPositionY();
+    auto yPos = 160.0f;
 
-    leftSideMenu->setPositionX(startX);
+    leftSideMenu->setPosition({startX, yPos});
 
     auto move = CCMoveTo::create(speed + 0.5f, CCPoint{targetX, yPos});
 

@@ -1,3 +1,6 @@
+# 1.6.0
+- Added code to move the bottom menu to the left menu if btn repos is off and repositioned the profile menu
+
 # 1.5.0
 - Added mod preview thing and made the code cleaner to read for a upcoming update... also thanks to [arthursimao](https://github.com/arthursimao) for the new thumbnail
 

@@ -88,7 +88,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			animateBottom(this, leftSideMenu, bottomMenu, winSize, speed, slideType, reDashSupport);
 
-			animateLinks(this, winSize, speed, slideType, linksMenu, reDashSupport);
+			animateLinks(this, winSize, speed, slideType, linksMenu, reDashSupport, btnRepos);
 
 			animateSide(this, winSize, speed, slideType, btnRepos, reDashSupport);
 
@@ -96,7 +96,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 			animateRight(this, winSize, speed, slideType);
 
-			animateGames(this, winSize, speed, slideType, reDashSupport);
+			animateGames(this, winSize, speed, slideType, reDashSupport, moreGamesBtn);
 
 			if (!infoBtn) {
         		auto modInfoBtn = CCMenuItemSpriteExtra::create(
@@ -108,10 +108,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 	    		modInfoBtn->setID("info-button"_spr);
 
 	    		if (btnRepos && !reDashSupport) {
-	    			leftSideMenu->addChild(modInfoBtn);
+	    			bottomMenu->addChild(modInfoBtn);
 	    		}
 	    		else {
-	    			bottomMenu->addChild(modInfoBtn);
+	    			leftSideMenu->addChild(modInfoBtn);
 	    		}
 
 	    		auto modInfoBtnText = CCLabelBMFont::create("?", "bigFont.fnt");
@@ -131,10 +131,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 			modSettingsBtn->setID("settings-button"_spr);
 
 			if (btnRepos && !reDashSupport) {
-				leftSideMenu->addChild(modSettingsBtn);
+				bottomMenu->addChild(modSettingsBtn);
 			}
 			else {
-				bottomMenu->addChild(modSettingsBtn);
+				leftSideMenu->addChild(modSettingsBtn);
 			}
 
 			leftSideMenu->updateLayout();

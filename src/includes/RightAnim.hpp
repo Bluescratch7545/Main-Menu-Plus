@@ -13,7 +13,7 @@ inline void animateRight(
     if (!rightSideMenu) return;
 
     float startX = 1000.0f;
-    auto yPos = rightSideMenu->getPositionY();
+    auto yPos = rightSideMenu->getPositionY() - 20.0f;
     float targetX = rightSideMenu->getPositionX();
 
     rightSideMenu->setPositionX(startX);
