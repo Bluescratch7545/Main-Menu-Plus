@@ -12,7 +12,7 @@
 
 <h1 align="center">Credits</h1>
 <h3 align="center">
-  <a href="https://github.com/Bluescratch7545o">Bluescratch</a>
+  <a href="https://github.com/Bluescratch7545">Bluescratch</a>
 </h3>
 
 <h4 align="center">Made Main Menu Plus itself coding and etc</h4>
@@ -22,3 +22,4 @@
 </h3>
 
 <h4 align="center">Made the icon + readme for Main Menu Plus</h4>
+
