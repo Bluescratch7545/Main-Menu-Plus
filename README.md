@@ -1,5 +1,13 @@
-# MainMenuPlus
+<p align="center">
+  <img src="name.png" alt="Main Menu Plus" width="350">
+</p>
 
-<img src="logo.png" width="150" alt="the mod's logo" />
 
-This Mod Animates The Main Menu Of GD!
+
+<h3 align="center">This Mod Animates The Main Menu Of GD!</h1>
+
+<h1 align="center">Preview</h1>
+
+<p align="center">
+  <video src="preview.mp4" controls width="600"></video>
+</p>
