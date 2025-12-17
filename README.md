@@ -9,5 +9,7 @@
 <h1 align="center">Preview</h1>
 
 <p align="center">
-  <video src="preview.mp4" controls width="600"></video>
+  <a href="https://pixeldrain.com/api/file/NB3ByBgE">
+    ▶ Watch Preview Video
+  </a>
 </p>
