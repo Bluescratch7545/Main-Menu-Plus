@@ -1,10 +1,10 @@
-# Main Menu Plus
+# <corg>Main Menu Plus</corg>
  
-This Mod Adds Animations To The Main Menu Of GD.
+This mod adds <cy>animations</cy> to the main menu of Geometry Dash.
 
-if you see issues report them at https://github.com/bluescratch7545/Main-Menu-Plus/issues
+If you see any issues, please report them at https://github.com/bluescratch7545/Main-Menu-Plus/issues.
 
-Thanks To [arthursimao](https://github.com/arthursimao) for the thumbnail
+Thanks to [arthursimao](https://github.com/arthursimao) for the thumbnail!
 
 ## Previews
 ![animation phase zero](./previews/preview-3.png)
