@@ -1,6 +1,7 @@
 #pragma once
 #include <Geode/Geode.hpp>
 #include <Geode/utils/cocos.hpp>
+#include <alphalaneous.pages_api/include/PageMenu.h>
 
 using namespace geode::prelude;
 
@@ -15,8 +16,14 @@ inline void animateSide(
     if (reDashSupport || btnRepos) return;
 
     auto bottomMenu = parent->getChildByID("bottom-menu");
-    auto leftSideMenu = parent->getChildByID("side-menu");
+    auto leftSideMenu = static_cast<PageMenu*>(parent->getChildByID("side-menu"));
     if (!leftSideMenu || !bottomMenu) return;
+    leftSideMenu->enablePages(true);
+    leftSideMenu->setElementCount(4);
+    leftSideMenu->setOrientation(VERTICAL);
+    leftSideMenu->setMax(250);
+    leftSideMenu->setButtonScale(0.8f);
+    
 
     auto children = bottomMenu->getChildrenExt();
     for (int i = children.size() - 1; i >= 0; i--) {

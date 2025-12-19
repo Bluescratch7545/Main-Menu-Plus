@@ -1,6 +1,6 @@
 # <corg>Main Menu Plus</corg>
  
-This mod adds <cy>animations</cy> to the main menu of Geometry Dash.
+This mod adds <cy>animations</cy> to the main menu of <cg>Geometry Dash</cg>.
 
 If you see any issues, please report them at https://github.com/bluescratch7545/Main-Menu-Plus/issues.
 
