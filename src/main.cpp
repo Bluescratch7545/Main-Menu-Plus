@@ -27,7 +27,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		auto userName = getChildByID("player-username");
 
 		// Define redashSupport
-		auto reDashSupport = Mod::get()->getSettingValue<bool>("redash-support");
+		auto reDashSupport = Loader::get()->isModLoaded("ninxout.redash");
 
 		// Define slideType
 		auto slideType = Mod::get()->getSettingValue<std::string>("slide-type");
