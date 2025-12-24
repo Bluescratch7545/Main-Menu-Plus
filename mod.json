@@ -113,16 +113,6 @@
 			"name": "Slide Type",
 			"description": "What The Slide Type Should Be",
 			"enable-if": "enable-change-slide"
-		},
-		"support-options": {
-			"type": "title",
-			"name": "Support Options"
-		},
-		"redash-support": {
-			"type": "bool",
-			"default": false,
-			"name": "OMM Support",
-			"description": "Adds Support For Overcharged Main Menu <cr> WARNING: STILL IN BETA"
 		}
 	},
 	"links": {
