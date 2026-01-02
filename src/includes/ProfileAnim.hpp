@@ -9,17 +9,39 @@ inline void animateProfile(
     float speed,
     const std::string& slideType,
     bool reDashSupport,
-    bool linksMenu
+    bool linksMenu,
+    bool btnRepos,
+    bool bMenuBtnRepos
 ) {
     auto profile = parent->getChildByID("profile-menu");
     auto userName = parent->getChildByID("player-username");
     if (!profile || !userName) return;
 
-    auto profileY = 286.0f;
-    float startX = 999.0f;
-    float targetX = 564.0f;
-    float targetUNX = 519.0f;
+    auto profileY = 45.0f;
+    float startX = 0.0f;
+    float targetX = 90.0f;
+    float targetUNX = 45.0f;
     float yDeviation = 40.0f;
+
+    if (btnRepos) {
+        profileY = 286.0f;
+        startX = 999.0f;
+        targetX = 564.0f;
+        targetUNX = 519.0f;
+        yDeviation = 40.0f;
+    }
+    if (!btnRepos) {
+        if (linksMenu) {
+            profileY = 95.0f;
+            yDeviation = 35.0f;
+        }
+    }
+
+    if (!bMenuBtnRepos) {
+        targetX = targetX + 28.0f;
+        targetUNX = targetUNX + 28.0f;
+    }
+
     if (reDashSupport) {
         startX = 0.0f;
         profileY = 30.0f;
@@ -32,7 +54,13 @@ inline void animateProfile(
     userName->setPositionX(startX);
 
     auto move = CCMoveTo::create(speed + 1.5f, CCPoint{targetX, profileY});
-    auto uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY - yDeviation});
+    CCMoveTo* uNMove = nullptr;
+    if (btnRepos) {
+        uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY - yDeviation});
+    }
+    else {  
+        uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY + yDeviation});
+    }
 
     CCActionInterval* action = nullptr;
     CCActionInterval* uNAction = nullptr;
