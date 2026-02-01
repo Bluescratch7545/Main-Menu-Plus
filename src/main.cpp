@@ -99,23 +99,23 @@ class $modify(AnimMenuLayer, MenuLayer) {
 				hideMenu,
 				menu_selector(AnimMenuLayer::hideBtnClicked)
 				);
-				// hideMenu->addChild(hideBtn); // Beta feature so hidden
+				// hideMenu->addChild(hideBtn); Beta feature so hidden
 				hideBtn->setPosition({285, 176});
 			}
 
-			animateTitle(this, winSize, speed, slideType);
+			AnimateTitle::animate(this, winSize, speed, slideType);
 				
 			animateCenter(this, winSize, speed, slideType, reDashSupport);
 
 			animateBottom(this, leftSideMenu, bottomMenu, winSize, speed, slideType, reDashSupport);
 
-			animateLinks(this, winSize, speed, slideType, linksMenu, reDashSupport, btnRepos);
+			AnimateLinks::animate(this, winSize, speed, slideType, linksMenu, reDashSupport, btnRepos);
 
-			animateSide(this, winSize, speed, slideType, btnRepos, reDashSupport);
+			AnimateSide::animate(this, winSize, speed, slideType, btnRepos, reDashSupport);
 
-			animateProfile(this, winSize, speed, slideType, reDashSupport, linksMenu, profBtnRepos, btnRepos);
+			AnimateProfile::animate(this, winSize, speed, slideType, reDashSupport, linksMenu, profBtnRepos, btnRepos);
 
-			animateRight(this, winSize, speed, slideType);
+			AnimateRight::animate(this, winSize, speed, slideType);
 
 			animateGames(this, winSize, speed, slideType, reDashSupport, moreGamesBtn);
 

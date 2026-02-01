@@ -3,81 +3,91 @@
 
 using namespace geode::prelude;
 
-inline void animateProfile(
-    CCNode* parent,
-    const CCSize& winSize,
-    float speed,
-    const std::string& slideType,
-    bool reDashSupport,
-    bool linksMenu,
-    bool btnRepos,
-    bool bMenuBtnRepos
-) {
-    auto profile = parent->getChildByID("profile-menu");
-    auto userName = parent->getChildByID("player-username");
-    if (!profile || !userName) return;
+class AnimateProfile : public CCNode {
+protected:
+    bool init(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+        if (!CCNode::init()) return false;
 
-    auto profileY = 45.0f;
-    float startX = 0.0f;
-    float targetX = 90.0f;
-    float targetUNX = 45.0f;
-    float yDeviation = 40.0f;
+        auto profile = parent->getChildByID("profile-menu");
+        auto userName = parent->getChildByID("player-username");
+        if (!profile || !userName) return false;
 
-    if (btnRepos) {
-        profileY = 286.0f;
-        startX = 999.0f;
-        targetX = 564.0f;
-        targetUNX = 519.0f;
-        yDeviation = 40.0f;
-    }
-    if (!btnRepos) {
-        if (linksMenu) {
-            profileY = 95.0f;
-            yDeviation = 35.0f;
+        auto profileY = 45.0f;
+        float startX = 0.0f;
+        float targetX = 90.0f;
+        float targetUNX = 45.0f;
+        float yDeviation = 40.0f;
+
+        if (btnRepos) {
+            profileY = 286.0f;
+            startX = 999.0f;
+            targetX = 564.0f;
+            targetUNX = 519.0f;
+            yDeviation = 40.0f;
         }
+        if (!btnRepos) {
+            if (linksMenu) {
+                profileY = 95.0f;
+                yDeviation = 35.0f;
+            }
+        }
+
+        if (!bMenuBtnRepos) {
+            targetX = targetX + 28.0f;
+            targetUNX = targetUNX + 28.0f;
+        }
+
+        if (reDashSupport) {
+            startX = 0.0f;
+            profileY = 30.0f;
+            targetX = 95.0f;
+            targetUNX = 55.0f;
+            yDeviation = 25.0f;
+        }
+
+        profile->setPositionX(startX);
+        userName->setPositionX(startX);
+
+        auto move = CCMoveTo::create(speed + 1.5f, CCPoint{targetX, profileY});
+        CCMoveTo* uNMove = nullptr;
+        if (btnRepos) {
+            uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY - yDeviation});
+        }
+        else {  
+            uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY + yDeviation});
+        }
+
+        CCActionInterval* action = nullptr;
+        CCActionInterval* uNAction = nullptr;
+
+        if (slideType == "Exponential Out") {
+            action = CCEaseExponentialOut::create(move);
+            uNAction = CCEaseExponentialOut::create(uNMove);
+        }
+        else if (slideType == "Bounce Out") {
+            action = CCEaseBounceOut::create(move);
+            uNAction = CCEaseBounceOut::create(uNMove);
+        }
+        else {
+            action = CCEaseBackOut::create(move);
+            uNAction = CCEaseBackOut::create(uNMove);
+        }
+
+        profile->runAction(action);
+        userName->runAction(uNAction);
+
+        return true;
     }
 
-    if (!bMenuBtnRepos) {
-        targetX = targetX + 28.0f;
-        targetUNX = targetUNX + 28.0f;
-    }
+public:
+    static AnimateProfile *animate(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+        auto ret = new AnimateProfile();
+        if (ret->init(parent, winSize, speed, slideType, reDashSupport, linksMenu, btnRepos, bMenuBtnRepos)) {
+            ret->autorelease();
+            return ret;
+        }
 
-    if (reDashSupport) {
-        startX = 0.0f;
-        profileY = 30.0f;
-        targetX = 95.0f;
-        targetUNX = 55.0f;
-        yDeviation = 25.0f;
+        delete ret;
+        return nullptr;
     }
-
-    profile->setPositionX(startX);
-    userName->setPositionX(startX);
-
-    auto move = CCMoveTo::create(speed + 1.5f, CCPoint{targetX, profileY});
-    CCMoveTo* uNMove = nullptr;
-    if (btnRepos) {
-        uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY - yDeviation});
-    }
-    else {  
-        uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY + yDeviation});
-    }
-
-    CCActionInterval* action = nullptr;
-    CCActionInterval* uNAction = nullptr;
-
-    if (slideType == "Exponential Out") {
-        action = CCEaseExponentialOut::create(move);
-        uNAction = CCEaseExponentialOut::create(uNMove);
-    }
-    else if (slideType == "Bounce Out") {
-        action = CCEaseBounceOut::create(move);
-        uNAction = CCEaseBounceOut::create(uNMove);
-    }
-    else {
-        action = CCEaseBackOut::create(move);
-        uNAction = CCEaseBackOut::create(uNMove);
-    }
-
-    profile->runAction(action);
-    userName->runAction(uNAction);
-}
+};
