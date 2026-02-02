@@ -3,18 +3,6 @@
 
 using namespace geode::prelude;
 
-inline void animateLinks(
-    CCNode* parent,
-    const CCSize& winSize,
-    float speed,
-    const std::string& slideType,
-    bool linksMenu,
-    bool reDashSupport,
-    bool btnRepos
-) {
-    
-}
-
 class AnimateLinks : public CCNode {
 protected:
     bool init(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool linksMenu, bool reDashSupport, bool btnRepos) {
