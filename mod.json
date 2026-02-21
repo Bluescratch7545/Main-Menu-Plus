@@ -1,26 +1,25 @@
 {
-	"geode": "5.0.0-alpha.1",
+	"geode": "5.0.0-beta.3",
 	"gd": {
 		"win": "2.2081",
-		"android": "2.2074",
+		"android": "2.2081",
 		"mac": "2.2081",
-		"ios": "2.2074"
+		"ios": "2.2081"
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.7.1",
+	"version": "v1.8.0",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
 		"geode.node-ids": {
 			"version": ">=1.20.0",
-			"importance": "required"
+			"required": true
 		},
-		"cvolton.misc_bugfixes": {
-			"importance": "suggested",
-			"version": ">=1.8.0"
+		"raydeeux.pages_api": {
+			"version": ">=1.0.0",
+			"required": true
 		}
-		
 		
 	},
 
@@ -107,6 +106,17 @@
 			"name": "Slide Type",
 			"description": "What The Slide Type Should Be",
 			"enable-if": "enable-change-slide"
+		},
+		"keybinds": {
+			"type": "title",
+			"name": "keybinds"
+		},
+		"settings-keybind": {
+			"type": "keybind",
+			"default": "F7",
+			"category": "universal",
+			"name": "Open Settings",
+			"priority": 1
 		}
 	},
 	"links": {

@@ -7,10 +7,6 @@
 		//		"win"
 		//	]
 		//},
-"alphalaneous.pages_api": {
-			"version": ">=1.0.0",
-			"importance": "required"
-		}
 
 		auto profile = parent->getChildByID("profile-menu");
     auto userName = parent->getChildByID("player-username");
@@ -79,3 +75,10 @@
 
     profile->runAction(action);
     userName->runAction(uNAction);
+
+
+    
+    "cvolton.misc_bugfixes": {
+			"required": false,
+			"version": ">=1.8.0"
+		},

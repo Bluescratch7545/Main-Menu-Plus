@@ -1,11 +1,14 @@
+# 1.8.0(beta 2) 
+- Added a hide button (self explanatory) and support for Geode 5.0.0-beta.3
+
 # 1.6.0
 - Added code to move the bottom menu to the left menu if btn repos is off and repositioned the profile menu
 
 # 1.5.0
-- Added mod preview thing and made the code cleaner to read for a upcoming update... also thanks to [arthursimao](https://github.com/arthursimao) for the new thumbnail
+- Added mod preview thing and made the code cleaner to read for a upcoming update... also thanks to [arthursimao](https://github.com/arthursimao) for the new logo
 
 # 1.4.4
-- Made the thumbnail better
+- Made the logo better
 
 # 1.4.3
 - Fixed bug where on wierd ratio devices the `more-games-target-pos` would fail

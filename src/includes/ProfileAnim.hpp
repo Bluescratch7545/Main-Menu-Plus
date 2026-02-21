@@ -5,12 +5,20 @@ using namespace geode::prelude;
 
 class AnimateProfile : public CCNode {
 protected:
-    bool init(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+    bool init(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos, bool isFromHide) {
         if (!CCNode::init()) return false;
+
+        float profSpeedDiff = 0.f;
+        float userNSpeedDiff = 0.f;
 
         auto profile = parent->getChildByID("profile-menu");
         auto userName = parent->getChildByID("player-username");
         if (!profile || !userName) return false;
+
+        if (!isFromHide) {
+            userNSpeedDiff = 1.f;
+            profSpeedDiff = 1.5f;
+        }
 
         auto profileY = 45.0f;
         float startX = 0.0f;
@@ -24,7 +32,7 @@ protected:
             targetX = 564.0f;
             targetUNX = 519.0f;
             yDeviation = 40.0f;
-        }
+        } 
         if (!btnRepos) {
             if (linksMenu) {
                 profileY = 95.0f;
@@ -48,13 +56,13 @@ protected:
         profile->setPositionX(startX);
         userName->setPositionX(startX);
 
-        auto move = CCMoveTo::create(speed + 1.5f, CCPoint{targetX, profileY});
+        auto move = CCMoveTo::create(speed + profSpeedDiff, CCPoint{targetX, profileY});
+
         CCMoveTo* uNMove = nullptr;
         if (btnRepos) {
-            uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY - yDeviation});
-        }
-        else {  
-            uNMove = CCMoveTo::create(speed + 1.0f, CCPoint{targetUNX, profileY + yDeviation});
+            uNMove = CCMoveTo::create(speed + userNSpeedDiff, CCPoint{targetUNX, profileY - yDeviation});
+        } else {  
+            uNMove = CCMoveTo::create(speed + userNSpeedDiff, CCPoint{targetUNX, profileY + yDeviation});
         }
 
         CCActionInterval* action = nullptr;
@@ -63,12 +71,10 @@ protected:
         if (slideType == "Exponential Out") {
             action = CCEaseExponentialOut::create(move);
             uNAction = CCEaseExponentialOut::create(uNMove);
-        }
-        else if (slideType == "Bounce Out") {
+        } else if (slideType == "Bounce Out") {
             action = CCEaseBounceOut::create(move);
             uNAction = CCEaseBounceOut::create(uNMove);
-        }
-        else {
+        } else {
             action = CCEaseBackOut::create(move);
             uNAction = CCEaseBackOut::create(uNMove);
         }
@@ -79,10 +85,61 @@ protected:
         return true;
     }
 
+    bool moveAway(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+        if (!CCNode::init()) return false;
+
+        auto profile = parent->getChildByID("profile-menu");
+        auto userName = parent->getChildByID("player-username");
+        if (!profile || !userName) return false;
+
+        auto profileY = 45.0f;
+        float targetX = 0.0f;
+
+        if (btnRepos) {
+            profileY = 286.0f;
+            targetX = 999.0f;
+        }
+        if (!btnRepos) {
+            if (linksMenu) {
+                profileY = 95.0f;
+            }
+        }
+
+        if (reDashSupport) {
+            profileY = 30.0f;
+            targetX = 0.f;
+        }
+
+
+        CCMoveTo* move = CCMoveTo::create(speed, CCPoint{targetX, profileY});
+
+        CCMoveTo* uNMove = CCMoveTo::create(speed, CCPoint{targetX- 36.f, profileY});
+
+        CCActionInterval* action = CCEaseBackIn::create(move);
+           
+        CCActionInterval* uNAction = CCEaseBackIn::create(uNMove);
+
+        profile->runAction(action);
+        userName->runAction(uNAction);
+
+        return true;
+    }
+
 public:
-    static AnimateProfile *animate(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+    static AnimateProfile *animate(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos, bool isFromHide) {
         auto ret = new AnimateProfile();
-        if (ret->init(parent, winSize, speed, slideType, reDashSupport, linksMenu, btnRepos, bMenuBtnRepos)) {
+        if (ret->init(parent, winSize, speed, slideType, reDashSupport, linksMenu, btnRepos, bMenuBtnRepos, isFromHide)) {
+            ret->autorelease();
+            return ret;
+        }
+
+        delete ret;
+        return nullptr;
+    }
+
+    static AnimateProfile *hide(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool linksMenu, bool btnRepos, bool bMenuBtnRepos) {
+        auto ret = new AnimateProfile();
+        if (ret->moveAway(parent, winSize, speed, slideType, reDashSupport, linksMenu, btnRepos, bMenuBtnRepos)) {
             ret->autorelease();
             return ret;
         }

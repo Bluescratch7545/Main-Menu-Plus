@@ -3,34 +3,76 @@
 
 using namespace geode::prelude;
 
-inline void animateCenter(
-    CCNode* parent,
-    const CCSize& winSize,
-    float speed,
-    const std::string& slideType,
-    bool reDashSupport
-) {
-    if (reDashSupport) return;
+class AnimateCenter : public CCNode {
+protected:
+    bool init(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport) {
+        if (!CCNode::init()) return false;
 
-    auto mainMenu = parent->getChildByID("main-menu");
-    if (!mainMenu) return;
-    auto targetY = 160.0f;
+        if (reDashSupport) return false;
 
-    mainMenu->setPositionY(-200.0f);
+        auto mainMenu = parent->getChildByID("main-menu");
+        if (!mainMenu) return false;
+        auto targetY = 160.0f;
 
-    auto move = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetY});
+        mainMenu->setPositionY(-200.0f);
 
-    CCActionInterval* action = nullptr;
+        auto move = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetY});
 
-    if (slideType == "Exponential Out") {
-        action = CCEaseExponentialOut::create(move);
+        CCActionInterval* action = nullptr;
+
+        if (slideType == "Exponential Out") {
+            action = CCEaseExponentialOut::create(move);
+        }
+        else if (slideType == "Bounce Out") {
+            action = CCEaseBounceOut::create(move);
+        }
+        else {
+            action = CCEaseBackOut::create(move);
+        }
+
+        mainMenu->runAction(action);
+
+        return true;
     }
-    else if (slideType == "Bounce Out") {
-        action = CCEaseBounceOut::create(move);
-    }
-    else {
-        action = CCEaseBackOut::create(move);
+
+    bool moveAway(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport) {
+        if (!CCNode::init()) return false;
+
+        if (reDashSupport) return false;
+
+        auto mainMenu = parent->getChildByID("main-menu");
+        if (!mainMenu) return false;
+        auto targetY = -200.0f;
+
+        auto move = CCMoveTo::create(speed, CCPoint{mainMenu->getPositionX(), targetY});
+
+        CCActionInterval* action = CCEaseBackIn::create(move);
+
+        mainMenu->runAction(action);
+
+        return true;
     }
 
-    mainMenu->runAction(action);
-}
+public:
+    static AnimateCenter *animate(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport) {
+        auto ret = new AnimateCenter();
+        if (ret->init(parent, winSize, speed, slideType, reDashSupport)) {
+            ret->autorelease();
+            return ret;
+        }
+
+        delete ret;
+        return nullptr;
+    }
+
+    static AnimateCenter *hide(CCNode* parent, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport) {
+        auto ret = new AnimateCenter();
+        if (ret->moveAway(parent, winSize, speed, slideType, reDashSupport)) {
+            ret->autorelease();
+            return ret;
+        }
+
+        delete ret;
+        return nullptr;
+    }
+};

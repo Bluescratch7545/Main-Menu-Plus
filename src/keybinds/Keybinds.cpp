@@ -1,28 +1,14 @@
-/*
 #include <Geode/Geode.hpp>
-#ifndef GEODE_IS_IOS
 #include <Geode/ui/GeodeUI.hpp>
-#include <geode.custom-keybinds/include/Keybinds.hpp>
+#include <Geode/loader/GameEvent.hpp>
+#include <Geode/loader/SettingV3.hpp>
 
 using namespace geode::prelude;
-using namespace keybinds;
 
-$execute {
-    BindManager::get()->registerBindable({
-		"open-settings"_spr,
-		"Main Menu Plus: Open Settings",
-		"Open Settings for Main Menu Plus",
-		{ Keybind::create(KEY_F7, Modifier::None) },
-		"Main Menu Plus/ Open Settings"
+$on_game(Loaded) {
+	listenForKeybindSettingPresses("settings-keybind", [](Keybind const& keybind, bool down, bool repeat, double timestamp) {
+		if (down && !repeat) {
+			openSettingsPopup(Mod::get(), false);
+		}
 	});
-
-    new EventListener([=](InvokeBindEvent* event) {
-    	if (event->isDown()) {
-            openSettingsPopup(Mod::get(), false);
-            log::info("Opened Settings");
-        }
-	return ListenerResult::Propagate;
-    }, InvokeBindFilter(nullptr, "open-settings"_spr));
-};
-#endif
-*/
+}
