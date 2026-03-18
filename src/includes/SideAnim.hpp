@@ -62,7 +62,7 @@ protected:
 
         return true;
     }
-    bool setPage(CCNode* parent) {
+    bool other(CCNode* parent, bool reDashSupport) {
         if (!CCNode::init()) return false;
 
         auto leftSideMenu = parent->getChildByID("side-menu");
@@ -103,9 +103,9 @@ public:
         return nullptr;
     }
 
-    static AnimateSide *page(CCNode* parent) {
+    static AnimateSide *doMisc(CCNode* parent, bool reDashSupport) {
         auto ret = new AnimateSide();
-        if (ret->setPage(parent)) {
+        if (ret->other(parent, reDashSupport)) {
             ret->autorelease();
             return ret;
         }

@@ -8,6 +8,10 @@ protected:
     bool init(CCNode* parent, CCNode* bottomMenu, const CCSize& winSize, int64_t speed, const std::string& slideType, bool reDashSupport, bool isFromHide) {
         if (!CCNode::init()) return false;
 
+        if (reDashSupport) {
+            return false;
+        }
+
         float speedDiff = 0.f;
         if (!isFromHide) {
             speedDiff = 0.5f;
@@ -17,9 +21,10 @@ protected:
         float startY = -200.0f;
         float targetY = 45.0f;
         if (reDashSupport) {
-            targetY = 153.0f;
+            targetY = 163.0f;
         }
         auto xPos = bottomMenu->getPositionX();
+        log::info("{}", targetY);
 
         bottomMenu->setPositionY(startY);
 
@@ -39,6 +44,24 @@ protected:
 
         bottomMenu->runAction(action);
 
+        return true;
+    }
+    bool cWarning() {
+        if (!CCNode::init()) return false;
+        
+        if (Mod::get()->getSettingValue<bool>("popup-on-omm") == true) {
+            geode::createQuickPopup(
+            "Main Menu Plus",
+            "Because of how MMP works, the bottom menu could not be animated. You can disable the popup in the settings.",
+            "Disable it now", "OK",
+            [](bool btn1, auto) {
+                    if (btn1) {
+                        Mod::get()->setSettingValue("popup-on-omm", false);
+                    }
+                }
+            );
+        }
+        
         return true;
     }
     bool moveAway(CCNode* parent, CCNode* bottomMenu, const CCSize& winSize, int64_t speed, const std::string& slideType) {
@@ -71,6 +94,16 @@ public:
     static AnimateBottom *hide(CCNode* parent, CCNode* bottomMenu, const CCSize& winSize, int64_t speed, const std::string& slideType) {
         auto ret = new AnimateBottom();
         if (ret->moveAway(parent, bottomMenu, winSize, speed, slideType)) {
+            ret->autorelease();
+            return ret;
+        }
+
+        delete ret;
+        return nullptr;
+    }
+    static AnimateBottom *createWarning() {
+        auto ret = new AnimateBottom();
+        if (ret->cWarning()) {
             ret->autorelease();
             return ret;
         }

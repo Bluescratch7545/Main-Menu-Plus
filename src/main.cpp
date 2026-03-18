@@ -19,7 +19,7 @@ CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 int64_t speed = Mod::get()->getSettingValue<int64_t>("slide-speed");
 std::string slideType = Mod::get()->getSettingValue<std::string>("slide-type");
 bool moreGamesBtn = Mod::get()->getSettingValue<bool>("toggle-moreGames");
-auto reDashSupport = Loader::get()->isModLoaded("ninxout.redash");
+bool reDashSupport;
 bool btnRepos = Mod::get()->getSettingValue<bool>("btn-repos");
 bool profBtnRepos = Mod::get()->getSettingValue<bool>("profbtnrepos");
 bool infoBtn = Mod::get()->getSettingValue<bool>("disable-info");
@@ -33,9 +33,10 @@ HideMenu* HideMenu::s_instance;
 float startPos;
 
 class $modify(AnimMenuLayer, MenuLayer) {
-	bool init() {
+	bool init() override {
 		if (!MenuLayer::init()) return false;
 
+		reDashSupport = Loader::get()->isModLoaded("ninxout.redash");;
 		
 		if (reDashSupport) {
 			profBtnRepos = false;
@@ -106,7 +107,7 @@ class $modify(AnimMenuLayer, MenuLayer) {
 			AnimateLinks::animate(this, winSize, speed, slideType, linksMenu, reDashSupport, btnRepos, false);
 
 			AnimateSide::animate(this, winSize, speed, slideType, btnRepos, reDashSupport, false);
-			AnimateSide::page(this);
+			AnimateSide::doMisc(this, reDashSupport);
 
 			AnimateProfile::animate(this, winSize, speed, slideType, reDashSupport, linksMenu, profBtnRepos, btnRepos, false);
 
@@ -155,10 +156,15 @@ class $modify(AnimMenuLayer, MenuLayer) {
 
 			leftSideMenu->updateLayout();
 			bottomMenu->updateLayout();
+
+			geode::log::info("OMM: {}", reDashSupport);
+
+			queueInMainThread([self = WeakRef(this)]{ if (auto s = self.lock()) { AnimateBottom::createWarning();} });
 		}
 		return true;
 
 	}
+
 
 	void modInfoBtnClicked(CCObject* sender) {
 		FLAlertLayer::create(

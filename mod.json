@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0-beta.3",
+	"geode": "5.3.0",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "bluescratch.main_menu_plus",
 	"name": "Main Menu Plus",
-	"version": "v1.8.0",
+	"version": "v1.8.1",
 	"developer": "Bluescratch",
 	"description": "A Mod Which Adds Animations To The GD Menu!",
 	"dependencies": {
@@ -20,7 +20,6 @@
 			"version": ">=1.0.0",
 			"required": true
 		}
-		
 	},
 
 	"tags": [
@@ -39,7 +38,7 @@
 		},
 		"main-menu-plus-settings": {
 			"type": "title",
-			"name": "Settings"
+			"name": "Main Settings"
 		},
 		"toggle-moreGames": {
 			"type":"bool",
@@ -71,6 +70,12 @@
 			"name": "Disable Info Btn",
 			"enable-if": "enable-mod",
 			"enable-if-description": "You Cannot Change This While The Mod Is Off!"
+		},
+		"popup-on-omm": {
+			"type": "bool",
+			"default": true,
+			"name": "Warning Popup on OverCharged main menu",
+			"description": "Enables/Disables the warning popup when the user has OverCharged main menu"
 		},
 		"slide-value-settings": {
 			"type": "title",
